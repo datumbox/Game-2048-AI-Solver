@@ -7,7 +7,7 @@ This implementation is based on the ideas and projects of Gabriele Cirulli and M
 
 For more information concerning the technique check out:
 
-http://blog.datumbox.com/
+http://blog.datumbox.com/using-artificial-intelligence-to-solve-the-2048-game-java-code/
 
 Useful Links
 ============
