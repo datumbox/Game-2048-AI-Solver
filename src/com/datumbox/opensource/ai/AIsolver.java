@@ -84,7 +84,14 @@ public class AIsolver {
 
                 for(Direction direction : Direction.values()) {
                     Board newBoard = (Board) theBoard.clone();
-                    int moveScore=newBoard.move(direction);
+                    
+                    int[][] currBoardArray = newBoard.getBoardArray();
+                    newBoard.move(direction);
+                    int[][] newBoardArray = newBoard.getBoardArray();
+                    
+                    if(isEqual(currBoardArray, newBoardArray)) {
+                    	continue;
+                    }
 
                     Map<String, Object> currentResult = minimax(newBoard, depth-1, Player.COMPUTER);
                     int currentScore=((Number)currentResult.get("Score")).intValue();
@@ -161,7 +168,14 @@ public class AIsolver {
             if(player == Player.USER) {
                 for(Direction direction : Direction.values()) {
                     Board newBoard = (Board) theBoard.clone();
+
+                    int[][] currBoardArray = newBoard.getBoardArray();
                     newBoard.move(direction);
+                    int[][] newBoardArray = newBoard.getBoardArray();
+                    
+                    if(isEqual(currBoardArray, newBoardArray)) {
+                    	continue;
+                    }
                     
                     Map<String, Object> currentResult = alphabeta(newBoard, depth-1, alpha, beta, Player.COMPUTER);
                     int currentScore=((Number)currentResult.get("Score")).intValue();
@@ -280,4 +294,26 @@ public class AIsolver {
         return clusteringScore;
     }
     
+    /**
+     * Checks whether the two input boards are same.
+     * 
+     * @param currBoardArray, newBoardArray
+     * @return 
+     */
+    private static boolean isEqual(int[][] currBoardArray, int[][] newBoardArray) {
+
+    	boolean equal = true;
+        
+        for(int i=0;i<currBoardArray.length;i++) {
+            for(int j=0;j<currBoardArray.length;j++) {
+                if(currBoardArray[i][j]!= newBoardArray[i][j]) {
+                    equal = false; //The two boards are not same.
+                    return equal;
+                }
+            }
+        }
+        
+        return equal;
+    }
+
 }
