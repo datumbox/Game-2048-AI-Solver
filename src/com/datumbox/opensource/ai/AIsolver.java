@@ -84,12 +84,10 @@ public class AIsolver {
 
                 for(Direction direction : Direction.values()) {
                     Board newBoard = (Board) theBoard.clone();
+
+                    int points=newBoard.move(direction);
                     
-                    int[][] currBoardArray = newBoard.getBoardArray();
-                    newBoard.move(direction);
-                    int[][] newBoardArray = newBoard.getBoardArray();
-                    
-                    if(isEqual(currBoardArray, newBoardArray)) {
+                    if(points==0 && newBoard.isEqual(theBoard.getBoardArray(), newBoard.getBoardArray())) {
                     	continue;
                     }
 
@@ -169,11 +167,9 @@ public class AIsolver {
                 for(Direction direction : Direction.values()) {
                     Board newBoard = (Board) theBoard.clone();
 
-                    int[][] currBoardArray = newBoard.getBoardArray();
-                    newBoard.move(direction);
-                    int[][] newBoardArray = newBoard.getBoardArray();
+                    int points=newBoard.move(direction);
                     
-                    if(isEqual(currBoardArray, newBoardArray)) {
+                    if(points==0 && newBoard.isEqual(theBoard.getBoardArray(), newBoard.getBoardArray())) {
                     	continue;
                     }
                     
@@ -292,28 +288,6 @@ public class AIsolver {
         }
         
         return clusteringScore;
-    }
-    
-    /**
-     * Checks whether the two input boards are same.
-     * 
-     * @param currBoardArray, newBoardArray
-     * @return 
-     */
-    private static boolean isEqual(int[][] currBoardArray, int[][] newBoardArray) {
-
-    	boolean equal = true;
-        
-        for(int i=0;i<currBoardArray.length;i++) {
-            for(int j=0;j<currBoardArray.length;j++) {
-                if(currBoardArray[i][j]!= newBoardArray[i][j]) {
-                    equal = false; //The two boards are not same.
-                    return equal;
-                }
-            }
-        }
-        
-        return equal;
     }
 
 }

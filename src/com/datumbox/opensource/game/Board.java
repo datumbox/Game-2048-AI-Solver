@@ -279,10 +279,17 @@ public class Board implements Cloneable {
      */
     public ActionStatus action(Direction direction) throws CloneNotSupportedException {
         ActionStatus result = ActionStatus.CONTINUE;
+        
+        int[][] currBoardArray = getBoardArray();
         int newPoints = move(direction);
+        int[][] newBoardArray = getBoardArray();
         
         //add random cell
-        boolean newCellAdded = addRandomCell();
+        boolean newCellAdded = false;
+        
+        if(!isEqual(currBoardArray, newBoardArray)) {
+            newCellAdded = addRandomCell();
+        }
         
         if(newPoints==0 && newCellAdded==false) {
             if(isGameTerminated()) {
@@ -385,5 +392,29 @@ public class Board implements Cloneable {
             copy[i] = original[i].clone();
         }
         return copy;
+    }
+    
+
+    
+    /**
+     * Checks whether the two input boards are same.
+     * 
+     * @param currBoardArray, newBoardArray
+     * @return 
+     */
+    public boolean isEqual(int[][] currBoardArray, int[][] newBoardArray) {
+
+    	boolean equal = true;
+        
+        for(int i=0;i<currBoardArray.length;i++) {
+            for(int j=0;j<currBoardArray.length;j++) {
+                if(currBoardArray[i][j]!= newBoardArray[i][j]) {
+                    equal = false; //The two boards are not same.
+                    return equal;
+                }
+            }
+        }
+        
+        return equal;
     }
 }
